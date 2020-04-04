@@ -7,4 +7,4 @@ splunk:
   token: "![jA4ZgAiOVTHI+9ePCU0ALA==]"
 
 ignoreLists:
-  organizations: ""  #Array: comma-separated values 'orgId1,orgId2'
+  organizations: "![gPUqKf9LTtD4p2H8rcqrzacPD2pfIArpCyiY6rXXzMIViCUDsWpN+60SO5nosJKa6VNx2HZn3cgz9CaX8PeabFP6uHcUUgMx1LUQLsbojuGF9MCo3CeATBmvJTqmpGtHBtwJxxg84ExU2A3zndAsrstLO+b58udM9NAY+pD5m5EHchkCFg7T64uhbxm2Lll0qF5yujvEam+uTGOpvVcDyrI8VSdk2mCAZbgHoYJeiiw8Ovzgel0JQ1w+9qtvoYSKRYzh3DwkzUyLOrHjFSbB4cY7NZ8FS82DwSFyxelY/+tIwIKBdj6NJ+hxajbHGWOEDBlEiQQYJsBoptgzX7rRQEAJ0znRXZAvMBmhY0KmunBa21eQBOMb6vSQu8VnrdWsze6Ls2QXiVpDwj8Ius0kO24NLOHpjnwjZ14Gi9TUJzODjzJT+xMTmuPP4a0N+4UiVwXPckVZYjU82CXtCQ97YrrL1pMLohdpzbCmuN9ZsUu/9bGVeSNmZbRCIQtVPRs2CKZkQj9FLbLVxrXSuKmLy6scmIFvaD3v6IPbE+PZj9H+dnXrwfhHPIbvGlFCgoHebwExGJSYFniUCzBK/do4Xl1uBZ+zXqmGw+whhXrGYJe6YTn/fZ6rk5qUBYddn1Ec]"  #Array: comma-separated values 'orgId1,orgId2'

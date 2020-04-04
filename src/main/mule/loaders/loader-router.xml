@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="loader-router-flow" doc:id="c8e9fdd0-4ec7-495e-bbf2-1ed6234e1996" >
 		<logger level="INFO" doc:name="Logger" doc:id="d7315fbe-d0d5-4755-93ac-a093b2d6b8d2" message="Strategy to Load Platform metrics: #[vars.loaderDetails.strategy]"/>
 		<choice doc:name="Choice" doc:id="e673f0db-bf2c-46d2-b5b2-fc70e45befe2" >
@@ -20,6 +21,16 @@
 			</when>
 			<when expression="#[vars.loaderDetails.strategy == 'json']">
 				<flow-ref doc:name="loader-json-main-flow" doc:id="4391eb71-d6ff-4ede-be37-4e8db692b70a" name="loader-json-main-flow"/>
+			</when>
+			<when expression="vars.loaderDetails.strategy == 'generic'">
+				<ee:transform doc:name="Transform Message" doc:id="a3846fbf-5398-4e31-a1b8-7861af7acd53" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+Mule::lookup('loader-' Mule::p(), {test:'hello '})]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
 			</when>
 			<otherwise >
 				<flow-ref doc:name="loader-default-flow" doc:id="173ea082-922f-4f69-b9f3-55f9246f0291" name="loader-default-flow"/>
