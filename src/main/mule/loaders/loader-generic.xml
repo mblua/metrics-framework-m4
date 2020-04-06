@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="loader-generic-main" doc:id="fc9ff255-7a82-41f7-bb37-3f5a92dc3e1a" >
-		<logger level="INFO" doc:name="XXXX1" doc:id="def948af-7944-46e0-8bed-25719e584254" message="XXXX1"/>
+		<logger level="INFO" doc:name="XXXX1" doc:id="def948af-7944-46e0-8bed-25719e584254" message="XXXX1 payload --#[payload]--"/>
+		<flow-ref doc:name="loader-generic-execute-metrics" doc:id="cfad3dde-5396-4d9f-aa8d-7f4d65b9b056" name="loader-generic-execute-metrics"/>
 	</flow>
+	<flow name="loader-generic-temporal-not-used" doc:id="ec88832d-ace5-4d55-8276-ee777d6671bc" >
+		<flow-ref doc:name="aggregator-platform-metrics-master-flow" doc:id="aa0742e4-7909-46e9-9850-4957c45b84fb" name="aggregator-platform-metrics-master-flow" />
+		<logger level="INFO" doc:name="XXXX2" doc:id="aaf5d3d9-48e6-41fb-bfaf-4692d7047119" message="XXXX2 payload --#[payload]--" />
+	</flow>
+	<flow name="loader-generic-execute-metrics" doc:id="88a31444-48d3-4b92-b005-7ef7eba54a5b" >
+		<set-variable value='#[%dw 2.0
+output application/json
+---
+{
+	simplifiedRawDataOutput: "lala"
+}]' doc:name="$rawData" doc:id="d1a9f709-63a9-4cc8-b598-5754c1d7b480" variableName="rawData"/>
+		<logger level="INFO" doc:name="Primero foreach para hacerlo visual, luego foreach parallel" doc:id="df2977e5-487b-4090-8d7d-cddc9e7044fe" message="XXX3 --#[payload]--" />
+		<ee:transform doc:name="getMetrics" doc:id="ab895e1c-a3e2-4bb0-a215-0f901dee71af" >
+		
+  
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="metrics" ><![CDATA[%dw 2.0
+//studio-begin
+fun getProperty(propertyName) = Mule::p(propertyName)
+//studio-end
+//playground-begin
+//fun getProperty(propertyName) = getPropertyFromObject(payload,propertyName)
+//fun getPropertyFromObject(object,path) = getPropertyFromObject(object[analizePath(path).actualElement],analizePath(path).newPath) default object
+/*
+fun analizePath(path) = {
+    originalPath:path,
+    newPath: ((path splitBy  ".") - (path splitBy  ".")[0]) reduce ( $$ ++ "." ++ $),
+    actualElement: (path splitBy  ".")[0]
+}
+*/
+//playground-end
+output application/json
+---
+getProperty("metrics.available") splitBy  "," map ((item, index) -> 
+{
+    id: item,
+    scripts: getProperty("metrics." ++ item ++ ".scripts") splitBy  ",",
+    executionResult: null
+}
+)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<logger level="INFO" doc:name="XXX4 PAYLOAD" doc:id="63fe0e64-5342-4d35-aeb7-f3b2846903f6" message="XXX4 --#[payload]--"/>
+		<flow-ref doc:name="PARALLEL-FOR-EACH-SIMULATOR" doc:id="28a5966d-6668-4318-9761-247a39632259" name="PARALLEL-FOR-EACH-SIMULATOR"/>
+	</flow>
+	<sub-flow name="PARALLEL-FOR-EACH-SIMULATOR" doc:id="eedaa2c4-e323-4d26-aa04-6a7f9a8019ee">
+		<set-payload value="#[vars.metrics[1]]" doc:name="Set Payload" doc:id="8b320d49-c6c2-42f2-88d6-4ddee6696504" />
+		<logger level="INFO" doc:name="PARALLEL FOR EACH SIMULATOR" doc:id="e0e3dcd2-700d-4de6-a5db-b264150dd96b" message="PARALLEL FOR EACH SIMULATOR-- ++   #[vars.rawData] ++ #[payload]" />
+		<set-variable value="#[payload]" doc:name="$currentMetric" doc:id="0c9835f2-9b32-4a19-9eaf-8b5016062303" variableName="currentMetric" />
+		<foreach doc:name="Executes each metric dataweave in order, over the initial payload" doc:id="99afac6b-5a83-45ae-854a-6402e737e373" collection="payload.scripts">
+				<set-variable value='#[%dw 2.0 output text/plain --- readUrl("classpath://" ++ payload, "text/plain")]' doc:name="$dataweaveScript" doc:id="1cccf41b-2ff2-4281-9967-9f104c8f7184" variableName="dataweaveScript" />
+			<logger level="INFO" doc:name="$dataweaveScript" doc:id="a87f6669-95b5-49c8-b35f-7b0a507cae38" message="dataweaveScript ------&gt; #[vars.dataweaveScript]" />
+			<logger level="INFO" doc:name="XXXX10 PAYLOAD" doc:id="5d10aaa9-3dfb-44c3-92f0-319633240a99" message="XXXX10 --#[payload]--" />
+			<logger level="INFO" doc:name="XXXX10.5 #[vars.currentMetric]" doc:id="33485745-5110-46b8-aa2c-35091afa707e" message="XXXX10.5 #[vars.currentMetric]"/>
+			<set-payload value="#[vars.currentMetric.executionResult]" doc:name="Set Payload" doc:id="529b5be8-f50d-4fca-b863-b9ea4ecaf2ff" />
+			<ee:dynamic-evaluate doc:name="Dynamic Evaluate" doc:id="cc6c0f3a-0784-4359-91c6-d76fb661d5dc" expression="#[vars.dataweaveScript]"/>
+			<logger level="INFO" doc:name="XXXX11 --#[payload]--" doc:id="8bb53eeb-49db-44f9-9c8c-ce1d4ad04d7c" message="XXXX11 --#[payload]--" />
+			<set-variable value='#[%dw 2.0 output aplication/json --- vars.currentMetric - ("executionResult")  ++ {executionResult:payload}]' doc:name="$currentMetric" doc:id="4f9820ab-c708-497c-8e1d-2f15e9e2b406" variableName="currentMetric" />
+			<logger level="INFO" doc:name="XXXX12 currentMetric --#[payload]--" doc:id="1c59005e-ecc6-4050-94c6-ab219a35038e" message="XXXX12 currentMetric --#[vars.currentMetric]--" />
+			</foreach>
+	</sub-flow>
 </mule>

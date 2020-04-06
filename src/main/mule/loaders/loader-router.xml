@@ -23,14 +23,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<flow-ref doc:name="loader-json-main-flow" doc:id="4391eb71-d6ff-4ede-be37-4e8db692b70a" name="loader-json-main-flow"/>
 			</when>
 			<when expression="vars.loaderDetails.strategy == 'generic'">
-				<ee:transform doc:name="Transform Message" doc:id="a3846fbf-5398-4e31-a1b8-7861af7acd53" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
----
-Mule::lookup('loader-' Mule::p(), {test:'hello '})]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
+				<flow-ref doc:name="Flow Reference" doc:id="445dcf6b-c6a2-41ef-8f28-1d027f09244a" name="loader-generic-main"/>
 			</when>
 			<otherwise >
 				<flow-ref doc:name="loader-default-flow" doc:id="173ea082-922f-4f69-b9f3-55f9246f0291" name="loader-default-flow"/>

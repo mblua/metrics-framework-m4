@@ -1,0 +1,20 @@
+metrics:
+  available: "metric-1,metric-2,metric-3"
+  metric-1:
+    description: "Metric 1"
+    scripts: "dw\\generic\\1.baseScripts.dwl"
+    inputExample: "some file, etc. May be used for MUnits"
+    outputExample: "some file, etc. May be used for MUnits"
+  metric-2:
+    description: "Metric 2"
+    scripts: "dw\\generic\\2.a.baseScripts.dwl,dw\\generic\\2.b.baseScripts.dwl,dw\\generic\\2.c.baseScripts.dwl"
+    inputExample: "some file, etc. May be used for MUnits"
+    outputExample: "some file, etc. May be used for MUnits"
+  metric-3: 
+    description: "Metric 3"
+    scripts: "dw\\generic\\3.baseScripts.dwl"
+    inputExample: "some file, etc. May be used for MUnits"
+    outputExample: "some file, etc. May be used for MUnits"
+  
+system: "" 
+customer: ""

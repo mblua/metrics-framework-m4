@@ -3,5 +3,5 @@ output application/json
 ---
 payload ++
 {
-	"baseScript222": "metric2.b"
+	"baseScript222": "metric2.c"
 }

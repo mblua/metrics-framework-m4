@@ -2,5 +2,6 @@
 output application/json
 ---
 {
-	"baseScript": "metric2.a"
+	"baseScript": "metric2.a",
+	"payload" : vars.rawData
 }
