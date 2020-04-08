@@ -1,0 +1,15 @@
+metrics:
+  available: "metric-2,metric-3"
+  metric-2:    
+    description: "Metric 2"
+    scripts: "dw\\generic\\powerbi\\2.a.powerbi.system.dwl"
+    inputExample: "some file, etc. May be used for MUnits"
+    outputExample: "some file, etc. May be used for MUnits"
+  metric-3: 
+    description: "Metric 3"
+    scripts: "dw\\generic\\powerbi\\3.a.powerbi.system.dwl"
+    inputExample: "some file, etc. May be used for MUnits"
+    outputExample: "some file, etc. May be used for MUnits"
+  
+system: "" 
+customer: ""

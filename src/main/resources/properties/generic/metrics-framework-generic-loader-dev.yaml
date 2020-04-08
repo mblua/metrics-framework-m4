@@ -1,6 +1,11 @@
+pre-process:
+  available: "pre1, pre2"
+  pre1:
+    scripts: "pre1.dwl"   {rawDAtaPre1} as preprocesado1
 metrics:
   available: "metric-1,metric-2,metric-3"
   metric-1:
+    dependencies: "proc1"
     description: "Metric 1"
     scripts: "dw\\generic\\1.baseScripts.dwl"
     inputExample: "some file, etc. May be used for MUnits"

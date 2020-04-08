@@ -11,10 +11,10 @@ poller:
     timezone: "GMT-3"
   
 aggregation:
-  raw: "false"
+  raw: "true"
   
 loader:
-  strategy: "logger"
+  strategy: "generic"
   
 splunk:
   host: "splunk-metrics.env.services.mulesoft.com"
