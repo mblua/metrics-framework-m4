@@ -43,10 +43,10 @@ fun analizePath(path) = {
 //playground-end
 output application/json
 ---
-getProperty("metrics.available") splitBy  "," map ((item, index) -> 
+getProperty("generic.metrics-base.available") splitBy  "," map ((item, index) -> 
 {
     id: item,
-    scripts: getProperty("metrics." ++ item ++ ".scripts") splitBy  ",",
+    scripts: getProperty("generic.metrics-base." ++ item ++ ".scripts") splitBy  ",",
     executionResult: null
 }
 )]]></ee:set-variable>

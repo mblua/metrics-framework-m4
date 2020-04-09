@@ -1,0 +1,59 @@
+pre-process:
+  available: "pre1, pre2"
+  pre1:
+    scripts: "pre1.dwl"
+generic:
+  loader: "powerbi-datasets"
+  customer: "corning"
+  metrics-base:
+    available: "metric-1,metric-2,metric-3"
+    metric-1:
+      dependencies:
+        datasources: "coreservices, arm" #Apis that we should query. This infomation should be use before the first api call.
+        pre-processes: "proc1" #Preprocesses/variables that this metric is going to use. Depending on this, we are going to process that variables or not.
+      description: "Metric 1"
+      scripts: "dw\\generic\\1.baseScripts.dwl"
+      input-example: "some file, etc. May be used for MUnits"
+      output-example: "some file, etc. May be used for MUnits"
+    metric-2:
+      description: "Metric 2"
+      scripts: "dw\\generic\\2.a.baseScripts.dwl,dw\\generic\\2.b.baseScripts.dwl,dw\\generic\\2.c.baseScripts.dwl"
+      input-example: "some file, etc. May be used for MUnits"
+      output-example: "some file, etc. May be used for MUnits"
+    metric-3: 
+      description: "Metric 3"
+      scripts: "dw\\generic\\3.baseScripts.dwl"
+      input-example: "some file, etc. May be used for MUnits"
+      output-example: "some file, etc. May be used for MUnits"
+      
+      
+  metrics-loaders:
+    powerbi-datasets:
+      available: "metric-1,metric-3"
+      metric-1:
+        description: "Metric 1 - powerbi-datasets"
+        scripts: "dw\\generic\\loaders\\powerbi-datasets\\1.powerbi-datasetScripts.dwl"
+        input-example: "some file, etc. May be used for MUnits"
+        output-example: "some file, etc. May be used for MUnits"
+      metric-3: 
+        description: "Metric 3 - powerbi-datasets"
+        scripts: "dw\\generic\\loaders\\powerbi-datasets\\3.powerbi-datasetScripts.dwl"
+        input-example: "some file, etc. May be used for MUnits"
+        output-example: "some file, etc. May be used for MUnits"
+      
+  metrics-customers:
+    corning:
+      available: "metric-3,metric-2"
+      metric-3:
+        description: "Metric 3"
+        scripts: "dw\\generic\\customers\\corning\\3.corningScripts.dwl"
+        input-example: "some file, etc. May be used for MUnits"
+        output-example: "some file, etc. May be used for MUnits"
+      metric-2:
+        description: "Metric 2"
+        scripts: "dw\\generic\\customers\\corning\\2.corningScripts.dwl"
+        input-example: "some file, etc. May be used for MUnits"
+        output-example: "some file, etc. May be used for MUnits"
+        
+  
+  

@@ -26,5 +26,5 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 	</http:request-config>
 	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="24678c25-10fb-4f47-941f-d16a779997c5" file="properties/secure/metrics-framework-${mule.env}.yaml" key="${mule.key}"/>
 	<global-property doc:name="Global Property" doc:id="27925b96-0977-4ea5-b09e-e417f88b98d0" name="mule.key" value="DON'T CHANGE THIS VALUE. SET A NEW ONE USING MAVEN PARAMS" />
-	<configuration-properties doc:name="Configuration properties" doc:id="72802fe2-b64f-4503-a481-1f5d24d88889" file="properties/generic/metrics-framework-generic-loader-${mule.env}.yaml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="72802fe2-b64f-4503-a481-1f5d24d88889" file="properties/generic/metrics-framework-generic-${mule.env}.yaml" />
 </mule>
