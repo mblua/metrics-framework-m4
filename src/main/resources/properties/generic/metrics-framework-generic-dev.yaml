@@ -43,15 +43,15 @@ generic:
       
   metrics-customers:
     corning:
-      available: "metric-3,metric-2"
-      metric-3:
-        description: "Metric 3"
-        scripts: "dw\\generic\\customers\\corning\\3.corningScripts.dwl"
-        input-example: "some file, etc. May be used for MUnits"
-        output-example: "some file, etc. May be used for MUnits"
+      available: "metric-2,metric-3"
       metric-2:
         description: "Metric 2"
         scripts: "dw\\generic\\customers\\corning\\2.corningScripts.dwl"
+        input-example: "some file, etc. May be used for MUnits"
+        output-example: "some file, etc. May be used for MUnits"
+      metric-3:
+        description: "Metric 3"
+        scripts: "dw\\generic\\customers\\corning\\3.corningScripts.dwl"
         input-example: "some file, etc. May be used for MUnits"
         output-example: "some file, etc. May be used for MUnits"
         
