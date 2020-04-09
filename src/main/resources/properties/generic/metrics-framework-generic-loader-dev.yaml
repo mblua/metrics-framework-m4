@@ -1,25 +1,27 @@
 pre-process:
   available: "pre1, pre2"
   pre1:
-    scripts: "pre1.dwl"   {rawDAtaPre1} as preprocesado1
+    scripts: "pre1.dwl"
 metrics:
   available: "metric-1,metric-2,metric-3"
   metric-1:
-    dependencies: "proc1"
+    dependencies:
+      datasources: "coreservices, arm" #Apis that we should query. This infomation should be use before the first api call.
+      pre-processes: "proc1" #Preprocesses/variables that this metric is going to use. Depending on this, we are going to process that variables or not.
     description: "Metric 1"
     scripts: "dw\\generic\\1.baseScripts.dwl"
-    inputExample: "some file, etc. May be used for MUnits"
-    outputExample: "some file, etc. May be used for MUnits"
+    input-example: "some file, etc. May be used for MUnits"
+    output-example: "some file, etc. May be used for MUnits"
   metric-2:
     description: "Metric 2"
     scripts: "dw\\generic\\2.a.baseScripts.dwl,dw\\generic\\2.b.baseScripts.dwl,dw\\generic\\2.c.baseScripts.dwl"
-    inputExample: "some file, etc. May be used for MUnits"
-    outputExample: "some file, etc. May be used for MUnits"
+    input-example: "some file, etc. May be used for MUnits"
+    output-example: "some file, etc. May be used for MUnits"
   metric-3: 
     description: "Metric 3"
     scripts: "dw\\generic\\3.baseScripts.dwl"
-    inputExample: "some file, etc. May be used for MUnits"
-    outputExample: "some file, etc. May be used for MUnits"
+    input-example: "some file, etc. May be used for MUnits"
+    output-example: "some file, etc. May be used for MUnits"
   
 system: "" 
 customer: ""
