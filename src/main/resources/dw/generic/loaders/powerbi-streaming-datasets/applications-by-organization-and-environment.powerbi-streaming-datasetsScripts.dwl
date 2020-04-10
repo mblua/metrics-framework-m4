@@ -3,5 +3,5 @@ output application/json
 ---
 payload ++
 {
-	"corning": "metric2"
+	"powerbi": "metric3"
 }

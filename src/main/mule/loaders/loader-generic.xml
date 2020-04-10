@@ -5,12 +5,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="loader-generic-main" doc:id="fc9ff255-7a82-41f7-bb37-3f5a92dc3e1a" >
-		<logger level="INFO" doc:name="XXXX1" doc:id="def948af-7944-46e0-8bed-25719e584254" message="XXXX1 payload --#[payload]--"/>
-		<logger level="INFO" doc:name="flowref - aggregator-platform-metrics-master-flow" doc:id="aaf5d3d9-48e6-41fb-bfaf-4692d7047119" message="aggregator-platform-metrics-master-flow" />
-		<flow-ref doc:name="loader-generic-execute-metrics" doc:id="cfad3dde-5396-4d9f-aa8d-7f4d65b9b056" name="loader-generic-execute-metrics"/>
-	</flow>
-	<flow name="loader-generic-temporal-not-used" doc:id="ec88832d-ace5-4d55-8276-ee777d6671bc" >
 		<flow-ref doc:name="aggregator-platform-metrics-master-flow" doc:id="aa0742e4-7909-46e9-9850-4957c45b84fb" name="aggregator-platform-metrics-master-flow" />
+		<logger level="INFO" doc:name="flowref - aggregator-platform-metrics-master-flow" doc:id="aaf5d3d9-48e6-41fb-bfaf-4692d7047119" message="aggregator-platform-metrics-master-flow payload --#[payload]--" />
+		<logger level="INFO" doc:name="XXXX1" doc:id="def948af-7944-46e0-8bed-25719e584254" message="XXXX1 payload --#[payload]--" />
+		<flow-ref doc:name="loader-generic-execute-metrics" doc:id="cfad3dde-5396-4d9f-aa8d-7f4d65b9b056" name="loader-generic-execute-metrics"/>
 	</flow>
 	<flow name="loader-generic-execute-metrics" doc:id="88a31444-48d3-4b92-b005-7ef7eba54a5b" >
 		<set-variable value='#[%dw 2.0

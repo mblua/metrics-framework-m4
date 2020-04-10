@@ -6,7 +6,7 @@ generic:
   loader: "powerbi-streaming-datasets"
   customer: "corning"
   metrics-base:
-    available: "metric-1,metric-2,metric-3"
+    available: "applications-by-organization-and-environment"
     metric-1:
       dependencies:
         datasources: "coreservices, arm" #Apis that we should query. This infomation should be use before the first api call.
@@ -15,9 +15,9 @@ generic:
       scripts: "dw\\generic\\1.baseScripts.dwl"
       input-example: "some file, etc. May be used for MUnits"
       output-example: "some file, etc. May be used for MUnits"
-    metric-2:
-      description: "Metric 2"
-      scripts: "dw\\generic\\2.a.baseScripts.dwl,dw\\generic\\2.b.baseScripts.dwl,dw\\generic\\2.c.baseScripts.dwl"
+    applications-by-organization-and-environment:
+      description: "Amount of applications by organization and environment"
+      scripts: "dw\\generic\\applications-by-organization-and-environment.baseScripts.dwl"
       input-example: "some file, etc. May be used for MUnits"
       output-example: "some file, etc. May be used for MUnits"
     metric-3: 
@@ -29,24 +29,22 @@ generic:
       
   metrics-loaders:
     powerbi-streaming-datasets:
-      available: "metric-1,metric-3"
-      metric-1:
-        description: "Metric 1 - powerbi-datasets"
-        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\1.powerbi-datasetScripts.dwl"
+      available: "applications-by-organization-and-environment"
+      applications-by-organization-and-environment:
+        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\applications-by-organization-and-environment.powerbi-streaming-datasetsScripts.dwl"
         input-example: "some file, etc. May be used for MUnits"
         output-example: "some file, etc. May be used for MUnits"
       metric-3: 
-        description: "Metric 3 - powerbi-datasets"
         scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\3.powerbi-datasetScripts.dwl"
         input-example: "some file, etc. May be used for MUnits"
         output-example: "some file, etc. May be used for MUnits"
       
   metrics-customers:
     corning:
-      available: "metric-2,metric-3"
-      metric-2:
+      available: "applications-by-organization-and-environment"
+      applications-by-organization-and-environment:
         description: "Metric 2"
-        scripts: "dw\\generic\\customers\\corning\\2.corningScripts.dwl"
+        scripts: "dw\\generic\\customers\\corning\\applications-by-organization-and-environment.corningScripts.dwl"
         input-example: "some file, etc. May be used for MUnits"
         output-example: "some file, etc. May be used for MUnits"
       metric-3:
