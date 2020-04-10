@@ -3,7 +3,7 @@ pre-process:
   pre1:
     scripts: "pre1.dwl"
 generic:
-  loader: "powerbi-datasets"
+  loader: "powerbi-streaming-datasets"
   customer: "corning"
   metrics-base:
     available: "metric-1,metric-2,metric-3"
@@ -28,16 +28,16 @@ generic:
       
       
   metrics-loaders:
-    powerbi-datasets:
+    powerbi-streaming-datasets:
       available: "metric-1,metric-3"
       metric-1:
         description: "Metric 1 - powerbi-datasets"
-        scripts: "dw\\generic\\loaders\\powerbi-datasets\\1.powerbi-datasetScripts.dwl"
+        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\1.powerbi-datasetScripts.dwl"
         input-example: "some file, etc. May be used for MUnits"
         output-example: "some file, etc. May be used for MUnits"
       metric-3: 
         description: "Metric 3 - powerbi-datasets"
-        scripts: "dw\\generic\\loaders\\powerbi-datasets\\3.powerbi-datasetScripts.dwl"
+        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\3.powerbi-datasetScripts.dwl"
         input-example: "some file, etc. May be used for MUnits"
         output-example: "some file, etc. May be used for MUnits"
       
