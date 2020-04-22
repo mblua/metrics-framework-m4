@@ -2,6 +2,8 @@
 output application/json
 ---
 payload ++
-{
-	"powerbi": "metric3"
+{	
+	"host": p('powerbi-streaming-datasets.host'),
+	"port": p('powerbi-streaming-datasets.port'),
+	"url": ""
 }
