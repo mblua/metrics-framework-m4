@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:request-config name="HTTP_Generic-PowerBi-Request" doc:name="HTTP Request configuration" doc:id="e67d2e9a-e966-4308-be15-f8c8405e531b" />
 	<flow name="loader-generic-main" doc:id="fc9ff255-7a82-41f7-bb37-3f5a92dc3e1a" >
 		<flow-ref doc:name="aggregator-platform-metrics-master-flow" doc:id="aa0742e4-7909-46e9-9850-4957c45b84fb" name="aggregator-platform-metrics-master-flow" />
 		<logger level="INFO" doc:name="flowref - aggregator-platform-metrics-master-flow" doc:id="aaf5d3d9-48e6-41fb-bfaf-4692d7047119" message="aggregator-platform-metrics-master-flow payload --#[payload]--" />
 		<logger level="INFO" doc:name="XXXX1" doc:id="def948af-7944-46e0-8bed-25719e584254" message="XXXX1 payload --#[payload]--" />
-		<flow-ref doc:name="loader-generic-execute-metrics" doc:id="cfad3dde-5396-4d9f-aa8d-7f4d65b9b056" name="loader-generic-execute-metrics"/>
+		<flow-ref doc:name="loader-generic-execute-metrics" doc:id="cfad3dde-5396-4d9f-aa8d-7f4d65b9b056" name="loader-generic-powerbi-execute-metrics"/>
 	</flow>
-	<flow name="loader-generic-execute-metrics" doc:id="88a31444-48d3-4b92-b005-7ef7eba54a5b" >
+	<flow name="loader-generic-powerbi-execute-metrics" doc:id="88a31444-48d3-4b92-b005-7ef7eba54a5b" >
 		<set-variable value='#[%dw 2.0
 output application/json
 ---
@@ -113,7 +115,17 @@ customerMetrics map ((item, index) ->
 		<foreach doc:name="For Each metric processed" doc:id="5089ac19-5490-49e6-b6bd-7c1371861cd2" collection="payload">
 			<logger level="INFO" doc:name="KKK1000 --#[payload]--" doc:id="02da6a98-435b-4da3-95f2-d82ee9a2b3ea" message="KKK1000 --#[payload]--"/>
 		</foreach>
+		<flow-ref doc:name="loader-generic-powerbi-pushing-results" doc:id="4ab14618-43f7-40cf-be19-0fc66ec6a43f" name="loader-generic-powerbi-pushing-results"/>
 <!-- 		<flow-ref doc:name="PARALLEL-FOR-EACH-SIMULATOR" doc:id="28a5966d-6668-4318-9761-247a39632259" name="PARALLEL-FOR-EACH-SIMULATOR"/> -->
+	</flow>
+	<flow name="loader-generic-powerbi-pushing-results" doc:id="7ca1cd8a-b36e-41e9-9a1c-5b793897e0c2" >
+		<logger level="INFO" doc:name="EXTERNAL1 ---#[payload]---" doc:id="8c18934d-62ca-404e-adfa-e573d45d77af" message="EXTERNAL1 ---#[payload]---"/>
+		<foreach doc:name="For Each" doc:id="d9925d8f-fcc9-4d74-b320-85e1085da38c" collection="payload">
+			<logger level="INFO" doc:name="EXTERNAL2 ---#[payload]---" doc:id="f2972afc-114d-4716-b7d1-e859b112c0eb" message="EXTERNAL2 ---#[payload]---" />
+			<logger level="INFO" doc:name="EXTERNAL3 ---#[vars.rootMessage[0]]---" doc:id="21b9a018-d1dc-4a55-a824-60aded861201" message="EXTERNAL3 ---#[vars.rootMessage[0]]---" />
+			<logger level="INFO" doc:name="EXTERNAL4 ---#[vars.rootMessage[0].payload]---" doc:id="97d6c7d0-9e17-40ce-9f5c-9ef322e5c260" message="EXTERNAL4 ---#[vars.rootMessage[0].payload]---" />
+			<http:request method="GET" doc:name="Request" doc:id="a7ed47c1-b268-44c3-a411-d03715c9a720" url="a"/>
+		</foreach>
 	</flow>
 	<sub-flow name="PARALLEL-FOR-EACH-SIMULATOR" doc:id="eedaa2c4-e323-4d26-aa04-6a7f9a8019ee">
 		<set-payload value="#[vars.metrics[1]]" doc:name="Set Payload" doc:id="8b320d49-c6c2-42f2-88d6-4ddee6696504" />

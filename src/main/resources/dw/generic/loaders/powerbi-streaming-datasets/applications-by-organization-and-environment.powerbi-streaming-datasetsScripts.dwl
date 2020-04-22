@@ -3,7 +3,7 @@ output application/json
 ---
 payload ++
 {	
-	"host": p('powerbi-streaming-datasets.host'),
-	"port": p('powerbi-streaming-datasets.port'),
+	"host": "api.powerbi.com",
+	"port": "443",
 	"url": ""
 }

@@ -4,9 +4,9 @@ pre-process:
     scripts: "pre1.dwl"
 generic:
   loader: "powerbi-streaming-datasets"
-  customer: "corning"
+  customer: "customer" #Reference 1: This is meant to be the name of a customer. No the word 'customer'. But this way, this approach is client agnostic until the rest of the generic approach gets completed. In the future this should be like 'corning' or any other name. It is the same each time that you read 'customer' in a value (folder names, file names, etc)
   metrics-base:
-    available: "applications-by-organization-and-environment"
+    available: "applications-by-organization-and-environment,applications-by-organization-and-environment-bis"
     metric-1:
       dependencies:
         datasources: "coreservices, arm" #Apis that we should query. This infomation should be use before the first api call.
@@ -20,6 +20,11 @@ generic:
       scripts: "dw\\generic\\applications-by-organization-and-environment.baseScripts.dwl"
       input-example: "some file, etc. May be used for MUnits"
       output-example: "some file, etc. May be used for MUnits"
+    applications-by-organization-and-environment-bis:
+      description: "Total applications by organization and environment"
+      scripts: "dw\\generic\\applications-by-organization-and-environment.baseScripts.dwl"
+      input-example: "some file, etc. May be used for MUnits"
+      output-example: "some file, etc. May be used for MUnits"
     metric-3: 
       description: "Metric 3"
       scripts: "dw\\generic\\3.baseScripts.dwl"
@@ -29,8 +34,14 @@ generic:
       
   metrics-loaders:
     powerbi-streaming-datasets:
-      available: "applications-by-organization-and-environment"
+      available: "applications-by-organization-and-environment,applications-by-organization-and-environment-bis"
       applications-by-organization-and-environment:
+        description: "Adding loader specific required values with default values"
+        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\applications-by-organization-and-environment.powerbi-streaming-datasetsScripts.dwl"
+        input-example: "some file, etc. May be used for MUnits"
+        output-example: "some file, etc. May be used for MUnits"
+      applications-by-organization-and-environment-bis:
+        description: "Adding loader specific required values with default values"
         scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\applications-by-organization-and-environment.powerbi-streaming-datasetsScripts.dwl"
         input-example: "some file, etc. May be used for MUnits"
         output-example: "some file, etc. May be used for MUnits"
@@ -40,11 +51,16 @@ generic:
         output-example: "some file, etc. May be used for MUnits"
       
   metrics-customers:
-    corning:
-      available: "applications-by-organization-and-environment"
+    customer: #Same as Reference 1
+      available: "applications-by-organization-and-environment,applications-by-organization-and-environment-bis"
       applications-by-organization-and-environment:
-        description: "Metric 2"
-        scripts: "dw\\generic\\customers\\corning\\applications-by-organization-and-environment.corningScripts.dwl"
+        description: "Adding customer specific values"
+        scripts: "dw\\generic\\customers\\customer\\applications-by-organization-and-environment.customerScripts.dwl" #Same as Reference 1, in the folder name and the file name.
+        input-example: "some file, etc. May be used for MUnits"
+        output-example: "some file, etc. May be used for MUnits"
+      applications-by-organization-and-environment-bis:
+        description: "Adding customer specific values"
+        scripts: "dw\\generic\\customers\\customer\\applications-by-organization-and-environment-bis.customerScripts.dwl" #Same as Reference 1, in the folder name and the file name.
         input-example: "some file, etc. May be used for MUnits"
         output-example: "some file, etc. May be used for MUnits"
       metric-3:
@@ -55,3 +71,4 @@ generic:
         
   
   
+ 
