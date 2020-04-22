@@ -16,7 +16,7 @@ generic:
       input-example: "some file, etc. May be used for MUnits"
       output-example: "some file, etc. May be used for MUnits"
     applications-by-organization-and-environment:
-      description: "Amount of applications by organization and environment"
+      description: "Total applications by organization and environment"
       scripts: "dw\\generic\\applications-by-organization-and-environment.baseScripts.dwl"
       input-example: "some file, etc. May be used for MUnits"
       output-example: "some file, etc. May be used for MUnits"

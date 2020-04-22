@@ -5,7 +5,7 @@ output application/json
 	"metric-id":"applications-by-organization-and-environment",
 	"data": 
    // (
-        payload map (organization, index) ->
+        vars.rawData map (organization, index) ->
          organization.runtimeManagerData.armApps map  
                 ( 
                     (environment, index) -> 

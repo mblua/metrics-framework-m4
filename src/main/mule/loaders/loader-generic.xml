@@ -14,9 +14,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<set-variable value='#[%dw 2.0
 output application/json
 ---
-{
-	simplifiedRawDataOutput: "lala"
-}]' doc:name="$rawData" doc:id="d1a9f709-63a9-4cc8-b598-5754c1d7b480" variableName="rawData"/>
+payload]' doc:name="$rawData" doc:id="d1a9f709-63a9-4cc8-b598-5754c1d7b480" variableName="rawData"/>
 		<logger level="INFO" doc:name="Primero foreach para hacerlo visual, luego foreach parallel" doc:id="df2977e5-487b-4090-8d7d-cddc9e7044fe" message="XXX3 --#[payload]--" />
 		<ee:transform doc:name="getMetrics" doc:id="ab895e1c-a3e2-4bb0-a215-0f901dee71af" >
 		
