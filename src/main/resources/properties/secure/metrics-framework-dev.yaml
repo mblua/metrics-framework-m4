@@ -1,10 +1,32 @@
 auth:
-  username: "![iUuXD2jDRvRyihXS/57UEFvpam8SQLGEHR4O5pr8qiM=]"
-  password: "![Rl4cotH6e/mqUitO6jChow==]"
-  orgId: "![B1J+8w0BmFck5SNG0D6H4OkajJCxhxIGclv/0I5sBawqdn/Xsj1VMif7VfWTF16e]"
-
-splunk:
-  token: "![jA4ZgAiOVTHI+9ePCU0ALA==]"
+  username: "![Zjv8nFIUwDlayZ6O7DP31p1zQRfrwfjbkmi5DyNiD38=]"
+  password: "![yqKEWZ57M3XUasumfcwhV35QQl9B5mf5GBon8eY/x8o=]"
+  orgId: "![yqKEWZ57M3XUasumfcwhVykLsfUM6yOEv2oEJ04vxZc=]"
 
 ignoreLists:
   organizations: "![gPUqKf9LTtD4p2H8rcqrzacPD2pfIArpCyiY6rXXzMIViCUDsWpN+60SO5nosJKa6VNx2HZn3cgz9CaX8PeabFP6uHcUUgMx1LUQLsbojuGF9MCo3CeATBmvJTqmpGtHBtwJxxg84ExU2A3zndAsrstLO+b58udM9NAY+pD5m5EHchkCFg7T64uhbxm2Lll0qF5yujvEam+uTGOpvVcDyrI8VSdk2mCAZbgHoYJeiiw8Ovzgel0JQ1w+9qtvoYSKRYzh3DwkzUyLOrHjFSbB4cY7NZ8FS82DwSFyxelY/+tIwIKBdj6NJ+hxajbHGWOEDBlEiQQYJsBoptgzX7rRQEAJ0znRXZAvMBmhY0KmunBa21eQBOMb6vSQu8VnrdWsze6Ls2QXiVpDwj8Ius0kO24NLOHpjnwjZ14Gi9TUJzODjzJT+xMTmuPP4a0N+4UiVwXPckVZYjU82CXtCQ97YrrL1pMLohdpzbCmuN9ZsUu/9bGVeSNmZbRCIQtVPRs2CKZkQj9FLbLVxrXSuKmLy6scmIFvaD3v6IPbE+PZj9H+dnXrwfhHPIbvGlFCgoHebwExGJSYFniUCzBK/do4Xl1uBZ+zXqmGw+whhXrGYJe6YTn/fZ6rk5qUBYddn1Ec]"  #Array: comma-separated values 'orgId1,orgId2'
+
+splunk:
+  token: "![yqKEWZ57M3XUasumfcwhV5A3JMblY6G4MCwHM5j5VuA=]"
+  
+elk:
+  user: "user"
+  password: "password"
+
+# SDLC Metrics
+sdlc:
+  confluence:
+    user: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+    token: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+  bitbucket:
+    user: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+    token: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+  jira:
+    user: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+    token: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+  jenkins:
+    user: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+    token: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+  splunk:
+    user: "![0CXQwZBMmw43vtBN7jyoRQ==]"
+    password: "![0CXQwZBMmw43vtBN7jyoRQ==]"
