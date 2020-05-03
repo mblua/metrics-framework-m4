@@ -123,7 +123,7 @@
 			<version>${secure-properties.version}</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
-	</dependencies>
+    </dependencies>
 
 	<repositories>
 		<repository>

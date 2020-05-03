@@ -1,3 +1,8 @@
+simulators:
+  enabled: "true"
+  working-directory: "/Users/mblua/0_gd/0_Mule_Current/Z2_MetricFramework/simulator/"
+  capture: "true"
+  aggregator-platform-metrics-master-flow-file-path: ""
 pre-process:
   available: "pre1, pre2"
   pre1:
@@ -6,69 +11,49 @@ generic:
   loader: "powerbi-streaming-datasets"
   customer: "customer" #Reference 1: This is meant to be the name of a customer. No the word 'customer'. But this way, this approach is client agnostic until the rest of the generic approach gets completed. In the future this should be like 'corning' or any other name. It is the same each time that you read 'customer' in a value (folder names, file names, etc)
   metrics-base:
-    available: "applications-by-organization-and-environment,applications-by-organization-and-environment-bis"
+    available: "applications-by-organization-and-environment,rolegroups-by-business-group"
     metric-1:
-      dependencies:
-        datasources: "coreservices, arm" #Apis that we should query. This infomation should be use before the first api call.
-        pre-processes: "proc1" #Preprocesses/variables that this metric is going to use. Depending on this, we are going to process that variables or not.
+      #dependencies:
+      #  datasources: "coreservices, arm" #Apis that we should query. This infomation should be use before the first api call.
+      #  pre-processes: "proc1" #Preprocesses/variables that this metric is going to use. Depending on this, we are going to process that variables or not.
       description: "Metric 1"
       scripts: "dw\\generic\\1.baseScripts.dwl"
-      input-example: "some file, etc. May be used for MUnits"
-      output-example: "some file, etc. May be used for MUnits"
+      #input-example: "some file, etc. May be used for MUnits"
+      #output-example: "some file, etc. May be used for MUnits"
     applications-by-organization-and-environment:
       description: "Total applications by organization and environment"
       scripts: "dw\\generic\\applications-by-organization-and-environment.baseScripts.dwl"
-      input-example: "some file, etc. May be used for MUnits"
-      output-example: "some file, etc. May be used for MUnits"
-    applications-by-organization-and-environment-bis:
-      description: "Total applications by organization and environment"
-      scripts: "dw\\generic\\applications-by-organization-and-environment.baseScripts.dwl"
-      input-example: "some file, etc. May be used for MUnits"
-      output-example: "some file, etc. May be used for MUnits"
+    rolegroups-by-business-group:
+      description: "Rolegroups by organization"
+      scripts: "dw\\generic\\rolegroups-by-business-group.baseScripts.dwl"
     metric-3: 
       description: "Metric 3"
       scripts: "dw\\generic\\3.baseScripts.dwl"
-      input-example: "some file, etc. May be used for MUnits"
-      output-example: "some file, etc. May be used for MUnits"
       
       
   metrics-loaders:
     powerbi-streaming-datasets:
-      available: "applications-by-organization-and-environment,applications-by-organization-and-environment-bis"
+      available: "applications-by-organization-and-environment,rolegroups-by-business-group"
       applications-by-organization-and-environment:
         description: "Adding loader specific required values with default values"
-        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\applications-by-organization-and-environment.powerbi-streaming-datasetsScripts.dwl"
-        input-example: "some file, etc. May be used for MUnits"
-        output-example: "some file, etc. May be used for MUnits"
-      applications-by-organization-and-environment-bis:
+        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\default.powerbi-streaming-datasetsScripts.dwl"
+      rolegroups-by-business-group:
         description: "Adding loader specific required values with default values"
-        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\applications-by-organization-and-environment.powerbi-streaming-datasetsScripts.dwl"
-        input-example: "some file, etc. May be used for MUnits"
-        output-example: "some file, etc. May be used for MUnits"
-      metric-3: 
-        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\3.powerbi-datasetScripts.dwl"
-        input-example: "some file, etc. May be used for MUnits"
-        output-example: "some file, etc. May be used for MUnits"
+        scripts: "dw\\generic\\loaders\\powerbi-streaming-datasets\\default.powerbi-streaming-datasetsScripts.dwl"
+
       
   metrics-customers:
     customer: #Same as Reference 1
-      available: "applications-by-organization-and-environment,applications-by-organization-and-environment-bis"
+      available: "applications-by-organization-and-environment,rolegroups-by-business-group"
       applications-by-organization-and-environment:
         description: "Adding customer specific values"
         scripts: "dw\\generic\\customers\\customer\\applications-by-organization-and-environment.customerScripts.dwl" #Same as Reference 1, in the folder name and the file name.
-        input-example: "some file, etc. May be used for MUnits"
-        output-example: "some file, etc. May be used for MUnits"
-      applications-by-organization-and-environment-bis:
+      rolegroups-by-business-group:
         description: "Adding customer specific values"
-        scripts: "dw\\generic\\customers\\customer\\applications-by-organization-and-environment-bis.customerScripts.dwl" #Same as Reference 1, in the folder name and the file name.
-        input-example: "some file, etc. May be used for MUnits"
-        output-example: "some file, etc. May be used for MUnits"
+        scripts: "dw\\generic\\customers\\customer\\rolegroups-by-business-group.customerScripts.dwl" #Same as Reference 1, in the folder name and the file name.
       metric-3:
         description: "Metric 3"
         scripts: "dw\\generic\\customers\\corning\\3.corningScripts.dwl"
-        input-example: "some file, etc. May be used for MUnits"
-        output-example: "some file, etc. May be used for MUnits"
-        
   
   
  
