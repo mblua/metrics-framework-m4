@@ -1,0 +1,9 @@
+mf-applications-by-organization-and-environment
+[
+{
+"business-group" :"AAAAA555555",
+"timestamp" :"2020-05-16T21:44:32.721Z",
+"environment" :"AAAAA555555",
+"total-applications" :98.6
+}
+]

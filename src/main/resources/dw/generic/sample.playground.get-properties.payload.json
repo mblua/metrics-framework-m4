@@ -1,0 +1,39 @@
+{
+    "customerMetrics": [
+  {
+    "id": "applications-by-organization-and-environment",
+    "scripts": [
+      "dw\\generic\\customers\\customer\\applications-by-organization-and-environment.customerScripts.dwl"
+    ]
+  }, 
+  {
+    "id": "rolegroups-by-business-group",
+    "scripts": [
+      "dw\\generic\\customers\\customer\\rolegroups-by-business-group.customerScripts.dwl"
+    ]
+  }
+],
+    "baseMetrics": [
+  {
+    "id": "applications-by-organization-and-environment",
+    "scripts": [
+      "dw\\generic\\base-metrics\\applications-by-organization-and-environment.baseScripts.dwl"
+    ],
+    "executionResult": null
+  }
+] ,
+"loaderMetrics":[
+  {
+    "id": "applications-by-organization-and-environment",
+    "scripts": [
+      "dw\\generic\\loaders\\powerbi-streaming-datasets\\default.powerbi-streaming-datasetsScripts.dwl"
+    ]
+  }, 
+  {
+    "id": "rolegroups-by-business-group",
+    "scripts": [
+      "dw\\generic\\loaders\\powerbi-streaming-datasets\\default.powerbi-streaming-datasetsScripts.dwl"
+    ]
+  }
+]
+}

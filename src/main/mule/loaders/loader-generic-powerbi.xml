@@ -33,7 +33,7 @@ output application/java
 				<logger level="INFO" doc:name="Also should be calling SDLC aggregator. And Benefits?" doc:id="b38bc72e-e2ad-4b19-8a19-4d4a040e0866" />
 			</otherwise>
 		</choice>
-		<logger level="INFO" doc:name="X9 -#[payload]-" doc:id="81ca986c-c849-48ed-bf83-7b3e631bcf18" message="X9 -#[payload]-"/>
+		<logger level="DEBUG" doc:name="Debug XXX1 -#[payload]-" doc:id="81ca986c-c849-48ed-bf83-7b3e631bcf18" message="XXX1 -#[payload]-"/>
 		<choice doc:name="Choice" doc:id="b77577e1-fd0d-4276-b903-c75277d1f9ba" >
 			<when expression="#[(Mule::p('simulators.enabled') == false) and Mule::p('simulators.capture')]">
 				<logger level="INFO" doc:name="Logger vars.directoryHash" doc:id="c8e16500-aebf-455d-b87a-134233ba6d27" message="vars.directoryHash -#[vars.directoryHash]-"/>
@@ -45,8 +45,8 @@ output application/java
 				<logger level="INFO" doc:name="Simulators not capturing" doc:id="ad96ad4e-dcb2-440b-8dd3-9baf808ca1fe" message="Simulators not capturing"/>
 			</otherwise>
 		</choice>
-		<logger level="INFO" doc:name="flowref - aggregator-platform-metrics-master-flow" doc:id="aaf5d3d9-48e6-41fb-bfaf-4692d7047119" message="aggregator-platform-metrics-master-flow payload --#[payload]--" />
-		<logger level="INFO" doc:name="XXXX1" doc:id="def948af-7944-46e0-8bed-25719e584254" message="XXXX1 payload --#[payload]--" />
+		<logger level="DEBUG" doc:name="flowref - aggregator-platform-metrics-master-flow" doc:id="aaf5d3d9-48e6-41fb-bfaf-4692d7047119" message="aggregator-platform-metrics-master-flow payload --#[payload]--" />
+		<logger level="DEBUG" doc:name="Debug XXX2 -#[payload]-" doc:id="def948af-7944-46e0-8bed-25719e584254" message="XXX2 -#[payload]-" />
 		<flow-ref doc:name="loader-generic-execute-metrics" doc:id="cfad3dde-5396-4d9f-aa8d-7f4d65b9b056" name="loader-generic-powerbi-execute-metrics"/>
 		<flow-ref doc:name="loader-generic-powerbi-pushing-results" doc:id="4ab14618-43f7-40cf-be19-0fc66ec6a43f" name="loader-generic-powerbi-pushing-results" />
 	</flow>
@@ -55,75 +55,38 @@ output application/java
 output application/json
 ---
 payload]' doc:name="$rawData" doc:id="d1a9f709-63a9-4cc8-b598-5754c1d7b480" variableName="rawData"/>
-		<logger level="INFO" doc:name="Primero foreach para hacerlo visual, luego foreach parallel" doc:id="df2977e5-487b-4090-8d7d-cddc9e7044fe" message="XXX3 --#[payload]--" />
-		<ee:transform doc:name="getMetrics" doc:id="ab895e1c-a3e2-4bb0-a215-0f901dee71af" >
+		<logger level="DEBUG" doc:name="Primero foreach para hacerlo visual, luego foreach parallel" doc:id="df2977e5-487b-4090-8d7d-cddc9e7044fe" message="XXX3 --#[payload]--" />
 		
-  
+		<ee:transform doc:name="getMetrics-LogBaseScripts" doc:id="a26f6832-d811-47ab-ba62-4cf386b036b5" >
 			<ee:message >
 			</ee:message>
 			<ee:variables >
-				<ee:set-variable variableName="metrics" ><![CDATA[%dw 2.0
-//studio-begin
-fun getProperty(propertyName) = Mule::p(propertyName)
-//studio-end
-//playground-begin
-/*fun getProperty(propertyName) = getPropertyFromObject(payload,propertyName)
-fun getPropertyFromObject(object,path) = getPropertyFromObject(object[analizePath(path).actualElement],analizePath(path).newPath) default object
-
-fun analizePath(path) = {
-    originalPath:path,
-    newPath: ((path splitBy  ".") - (path splitBy  ".")[0]) reduce ( $$ ++ "." ++ $),
-    actualElement: (path splitBy  ".")[0]
-}
-
-*/
-//playground-end
-
-var loaderPropertiesPath = "generic.metrics-loaders." ++ getProperty("generic.loader")
-
-var customerPropertiesPath = "generic.metrics-customers." ++ getProperty("generic.customer")
-
-var baseMetrics = getProperty("generic.metrics-base.available") splitBy "," map ((item, index) -> 
-{
-    id: item,
-    scripts: getProperty("generic.metrics-base." ++ item ++ ".scripts") splitBy  ",",
-    executionResult: null
-}
-)
-
-var loaderMetrics = getProperty(loaderPropertiesPath ++ ".available") splitBy "," map ((item, index) -> 
-{
-    id: item,
-    scripts: getProperty    
-(loaderPropertiesPath ++ "." ++ item ++ ".scripts")   
-    splitBy  ","
-}
-)
-
-var customerMetrics = getProperty(customerPropertiesPath ++ ".available") splitBy "," map ((item, index) -> 
-{
-    id: item,
-    scripts: getProperty    
-(customerPropertiesPath ++ "." ++ item ++ ".scripts")   
-    splitBy  ","
-}
-)
-output application/json
----
-customerMetrics map ((item, index) ->
-{
-    id: item.id,
-    scripts: 
-(
-(baseMetrics[(baseMetrics.id find item.id)[0]]).scripts 
-++ ((
-    (loaderMetrics[(loaderMetrics.id find item.id)[0]]) .scripts) default []) 
-++ item.scripts
-)
- 
-}
-)
-]]></ee:set-variable>
+				<ee:set-variable variableName="metrics" resource="dw/generic/get-properties-log-baseMetrics.dwl"/>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="getMetrics-LogCustomerMetrics" doc:id="b433f796-2114-41cf-b49e-864045222103" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="metrics" resource="dw/generic/get-properties-log-customerMetrics.dwl"/>
+			</ee:variables>
+		</ee:transform>	
+		
+		<ee:transform doc:name="getMetrics-LogLoaderMetrics" doc:id="91b8849a-b9cd-43b7-8028-8296e9b36269" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="metrics" resource="dw/generic/get-properties-log-loaderMetrics.dwl"/>
+			</ee:variables>
+		</ee:transform>
+		
+		
+		
+		<ee:transform doc:name="getMetrics" doc:id="ab895e1c-a3e2-4bb0-a215-0f901dee71af" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="metrics" resource="dw/generic/get-properties.dwl"/>
 			</ee:variables>
 		</ee:transform>
 		<logger level="INFO" doc:name="XXX4 PAYLOAD" doc:id="63fe0e64-5342-4d35-aeb7-f3b2846903f6" message="XXX4 --#[payload]--"/>
