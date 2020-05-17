@@ -26,7 +26,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<flow-ref doc:name="loader-elk-main-flow" doc:id="7bf1f286-f84d-4b0e-b0b3-f0fa96d57c10" name="loader-elk-main-flow"/>
 			</when>
 			<when expression="vars.loaderDetails.strategy == 'generic'">
-				<flow-ref doc:name="Flow Reference" doc:id="445dcf6b-c6a2-41ef-8f28-1d027f09244a" name="loader-generic-main"/>
+				<flow-ref doc:name="loader-generic-main" doc:id="445dcf6b-c6a2-41ef-8f28-1d027f09244a" name="loader-generic-main"/>
 			</when>
 			<otherwise >
 				<flow-ref doc:name="loader-default-flow" doc:id="173ea082-922f-4f69-b9f3-55f9246f0291" name="loader-default-flow"/>
