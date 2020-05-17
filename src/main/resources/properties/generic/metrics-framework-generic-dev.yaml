@@ -10,6 +10,8 @@ pre-process:
 generic:
   loader: "powerbi-streaming-datasets"
   customer: "customer" #Reference 1: This is meant to be the name of a customer. No the word 'customer'. But this way, this approach is client agnostic until the rest of the generic approach gets completed. In the future this should be like 'corning' or any other name. It is the same each time that you read 'customer' in a value (folder names, file names, etc)
+  #Use isolate-metric to execute one specific metric. debug purposes.
+  isolate-metric: "applications-by-organization-and-environment"
   metrics-base:
     #available: "applications-by-organization-and-environment,rolegroups-by-business-group"
     available: "applications-by-organization-and-environment"
@@ -58,4 +60,5 @@ generic:
         scripts: "dw\\generic\\customers\\corning\\3.corningScripts.dwl"
   
   
+ 
  

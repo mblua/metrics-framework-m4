@@ -98,14 +98,14 @@ payload]' doc:name="$rawData" doc:id="d1a9f709-63a9-4cc8-b598-5754c1d7b480" vari
 			<set-variable value="#[payload]" doc:name="$currentMetric" doc:id="1f0a52e0-41eb-43ee-9c50-5f14bc7ea346" variableName="currentMetric" />
 			<foreach doc:name="Executes each metric dataweave in order, over the initial payload" doc:id="19f4508a-2af6-4e5a-9e09-7a8ac5fba810" collection="payload.scripts">
 				<set-variable value='#[%dw 2.0 output text/plain --- readUrl("classpath://" ++ payload, "text/plain")]' doc:name="$dataweaveScript" doc:id="8cb7599b-0efb-4824-878d-0cd1fb186d41" variableName="dataweaveScript" />
-			<logger level="INFO" doc:name="$dataweaveScript" doc:id="6d9c88a3-da98-42c3-8451-7ad7485b5058" message="dataweaveScript ------&gt; #[vars.dataweaveScript]" />
-			<logger level="INFO" doc:name="XXXX10 PAYLOAD" doc:id="85460ee2-68c7-48e8-9fcb-f8dccc1fbe78" message="XXXX10 --#[payload]--" />
-			<logger level="INFO" doc:name="XXXX10.5 #[vars.currentMetric]" doc:id="4dd89688-f7f7-4749-9fc6-9bd444281df8" message="XXXX10.5 #[vars.currentMetric]" />
-			<set-payload value="#[vars.currentMetric.executionResult]" doc:name="Set Payload" doc:id="4fee73c7-7343-4181-9ad6-a61ea590f209" />
-			<ee:dynamic-evaluate doc:name="Dynamic Evaluate" doc:id="14f8d838-72f0-4065-9a4f-cbc5688afea9" expression="#[vars.dataweaveScript]" />
-			<logger level="INFO" doc:name="XXXX11 --#[payload]--" doc:id="55a763e9-d120-427a-afba-41db0b2e5bcf" message="XXXX11 --#[payload]--" />
-			<set-variable value='#[%dw 2.0 output aplication/json --- vars.currentMetric - ("executionResult")  ++ {executionResult:payload}]' doc:name="$currentMetric" doc:id="352687ab-bc86-4c4e-b308-78f6cb36284f" variableName="currentMetric" />
-			<logger level="INFO" doc:name="XXXX12 currentMetric --#[payload]--" doc:id="20828b4d-1c0c-438e-ad28-6f24fac5f1bd" message="XXXX12 currentMetric --#[vars.currentMetric]--" />
+				<logger level="INFO" doc:name="$dataweaveScript" doc:id="6d9c88a3-da98-42c3-8451-7ad7485b5058" message="dataweaveScript ------&gt; #[vars.dataweaveScript]" />
+				<logger level="INFO" doc:name="XXXX10 PAYLOAD" doc:id="85460ee2-68c7-48e8-9fcb-f8dccc1fbe78" message="XXXX10 MetricId: #[vars.currentMetric.id] --#[payload]--" />
+				<logger level="INFO" doc:name="XXXX10.5 #[vars.currentMetric]" doc:id="4dd89688-f7f7-4749-9fc6-9bd444281df8" message="XXXX10.5 MetricId: #[vars.currentMetric.id] #[vars.currentMetric]" />
+				<set-payload value="#[vars.currentMetric.executionResult]" doc:name="Set Payload" doc:id="4fee73c7-7343-4181-9ad6-a61ea590f209" />
+				<ee:dynamic-evaluate doc:name="Dynamic Evaluate" doc:id="14f8d838-72f0-4065-9a4f-cbc5688afea9" expression="#[vars.dataweaveScript]" />
+				<logger level="INFO" doc:name="XXXX11 --#[payload]--" doc:id="55a763e9-d120-427a-afba-41db0b2e5bcf" message="XXXX11 MetricId: #[vars.currentMetric.id] --#[payload]--" />
+				<set-variable value='#[%dw 2.0 output aplication/json --- vars.currentMetric - ("executionResult")  ++ {executionResult:payload}]' doc:name="$currentMetric" doc:id="352687ab-bc86-4c4e-b308-78f6cb36284f" variableName="currentMetric" />
+				<logger level="INFO" doc:name="XXXX12 currentMetric --#[payload]--" doc:id="20828b4d-1c0c-438e-ad28-6f24fac5f1bd" message="XXXX12 MetricId: #[vars.currentMetric.id] currentMetric --#[vars.currentMetric]--" />
 			</foreach>
 			<logger level="INFO" doc:name="KKK40 payload" doc:id="cf84a817-1775-4d69-8c8b-f377fbb8e31d" message="KKK40 payload --#[payload]--" />
 			<logger level="INFO" doc:name="KKK40.1 vars.currentMetric" doc:id="464fb31f-49b1-46c7-ac98-bf106ec4daa0" message="KKK40.1 vars.currentMetric --#[vars.currentMetric]--" />

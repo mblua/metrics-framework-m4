@@ -14,7 +14,7 @@ fun analizePath(path) = {
 
 */
 //playground-end
-
+var isolateMetric = getProperty("generic.isolate-metric")
 var loaderPropertiesPath = "generic.metrics-loaders." ++ getProperty("generic.loader")
 
 var customerPropertiesPath = "generic.metrics-customers." ++ getProperty("generic.customer")
@@ -46,16 +46,21 @@ var customerMetrics = getProperty(customerPropertiesPath ++ ".available") splitB
 )
 output application/json
 ---
-customerMetrics map ((item, index) ->
+(customerMetrics map ((item, index) ->
 {
     id: item.id,
     scripts: 
 (
-(baseMetrics[(baseMetrics.id find item.id)[0]]).scripts default [] 
+(baseMetrics[(baseMetrics.id find item.id)[0]]).scripts default []
 ++ ((
     (loaderMetrics[(loaderMetrics.id find item.id)[0]]) .scripts) default []) 
 ++ item.scripts
 )
  
 }
+)) filter ((item, index) ->  
+    if (isEmpty(isolateMetric)) 
+        true
+    else
+        (isolateMetric contains item.id) 
 )
