@@ -4,6 +4,7 @@ simulators:
   capture: "true"
   aggregator-platform-metrics-master-flow-file-path: ""
 pre-process:
+  #This should be process in a parallel for each
   available: "pre1, pre2"
   pre1:
     scripts: "pre1.dwl"
@@ -11,10 +12,10 @@ generic:
   loader: "powerbi-streaming-datasets"
   customer: "customer" #Reference 1: This is meant to be the name of a customer. No the word 'customer'. But this way, this approach is client agnostic until the rest of the generic approach gets completed. In the future this should be like 'corning' or any other name. It is the same each time that you read 'customer' in a value (folder names, file names, etc)
   #Use isolate-metric to execute one specific metric. debug purposes.
-  isolate-metric: "applications-by-organization-and-environment"
+  isolate-metric: "rolegroups-by-business-group"
   metrics-base:
     #available: "applications-by-organization-and-environment,rolegroups-by-business-group"
-    available: "applications-by-organization-and-environment"
+    available: "applications-by-organization-and-environment,rolegroups-by-business-group"
     metric-1:
       #dependencies:
       #  datasources: "coreservices, arm" #Apis that we should query. This infomation should be use before the first api call.

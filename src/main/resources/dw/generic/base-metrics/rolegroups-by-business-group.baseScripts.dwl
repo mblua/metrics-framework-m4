@@ -1,8 +1,15 @@
 %dw 2.0
 output application/json
 ---
-payload map (organization,index) -> 
 {
-    businessGroup:organization.businessGroup,
-    roleGroups: organization.coreServicesData.rolegroups
+    "metric-id":"rolegroups-by-business-group",
+	"data": 
+    (
+        vars.rawData map (organization,index) -> 
+        {
+            "businessGroup": organization.businessGroup,
+            "roleGroups": organization.coreServicesData.rolegroups,
+            "totalUsers": sizeOf(organization.coreServicesData.users)
+        }
+    )
 }

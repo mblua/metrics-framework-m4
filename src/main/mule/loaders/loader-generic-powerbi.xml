@@ -37,8 +37,8 @@ output application/java
 		<choice doc:name="Choice" doc:id="b77577e1-fd0d-4276-b903-c75277d1f9ba" >
 			<when expression="#[(Mule::p('simulators.enabled') == false) and Mule::p('simulators.capture')]">
 				<logger level="INFO" doc:name="Logger vars.directoryHash" doc:id="c8e16500-aebf-455d-b87a-134233ba6d27" message="vars.directoryHash -#[vars.directoryHash]-"/>
-				<logger level="INFO" doc:name="X10  -#[payload]-" doc:id="ce599cc9-7d67-47f8-b377-b8f5125f8c28" message="X10  -#[payload]-"/>
-				<logger level="INFO" doc:name="X11  -#[payload]-" doc:id="a0e10b94-2dfd-4fdd-997b-b38c5e1023dd" message="X11  -#[payload]-"/>
+				<logger level="INFO" doc:name="XXX10  -#[payload]-" doc:id="ce599cc9-7d67-47f8-b377-b8f5125f8c28" message="XXX10  -#[payload]-"/>
+				<logger level="INFO" doc:name="XXX11  -#[payload]-" doc:id="a0e10b94-2dfd-4fdd-997b-b38c5e1023dd" message="XXX11  -#[payload]-"/>
 				<file:write doc:name="aggregator-platform-metrics-master-flow file" doc:id="96ce40b3-06ac-436e-afc1-1783b7dace4c" config-ref="SimulatorWorkingDirectory" path="#[vars.directoryHash ++ '/aggregator-platform-metrics-master-flow.json']"/>
 			</when>
 			<otherwise >
@@ -122,9 +122,22 @@ payload]' doc:name="$rawData" doc:id="d1a9f709-63a9-4cc8-b598-5754c1d7b480" vari
 		<logger level="INFO" doc:name="EXTERNAL1 ---#[payload]---" doc:id="8c18934d-62ca-404e-adfa-e573d45d77af" message="EXTERNAL1 ---#[payload]---"/>
 		<foreach doc:name="For Each" doc:id="d9925d8f-fcc9-4d74-b320-85e1085da38c" collection="payload">
 			<logger level="INFO" doc:name="EXTERNAL2 ---#[payload]---" doc:id="f2972afc-114d-4716-b7d1-e859b112c0eb" message="EXTERNAL2 ---#[payload]---" />
+			<ee:transform doc:name="powerBiFinalURL" doc:id="67b15aba-9229-47be-95d0-e0b115fd7485" >
+				<ee:message >
+				</ee:message>
+				<ee:variables >
+					<ee:set-variable variableName="powerBiFinalUrl" ><![CDATA[%dw 2.0
+var result = payload.executionResult
+output text/plain
+---
+result.protocol ++ "://" ++ result.host ++ "/" ++ result.url ]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
 			<logger level="INFO" doc:name="EXTERNAL3 ---#[vars.rootMessage[0]]---" doc:id="21b9a018-d1dc-4a55-a824-60aded861201" message="EXTERNAL3 ---#[vars.rootMessage[0]]---" />
 			<logger level="INFO" doc:name="EXTERNAL4 ---#[vars.rootMessage[0].payload]---" doc:id="97d6c7d0-9e17-40ce-9f5c-9ef322e5c260" message="EXTERNAL4 ---#[vars.rootMessage[0].payload]---" />
-			<http:request method="GET" doc:name="Request" doc:id="a7ed47c1-b268-44c3-a411-d03715c9a720" url="http://localhost:5555/"/>
+			<http:request method="POST" doc:name="Request" doc:id="a7ed47c1-b268-44c3-a411-d03715c9a720" url="#[vars.powerBiFinalUrl]">
+				<http:body ><![CDATA[#[payload.executionResult.data]]]></http:body>
+			</http:request>
 		</foreach>
 	</flow>
 	<sub-flow name="PARALLEL-FOR-EACH-SIMULATOR" doc:id="eedaa2c4-e323-4d26-aa04-6a7f9a8019ee">
